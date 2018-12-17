@@ -39,7 +39,7 @@ const styleIconWrapper = {
 const App = () => {
   const padding = useInput('padding', 1, { min: 0, max: 6 })
   const size = useInput('size', 100, { min: 0, max: 400 })
-  const lineHeight = useInput('line height', 6, { min: 0, max: SIZE / 2 })
+  const extraVerticalPadding = useInput('extra vertical padding', 6, { min: 0, max: SIZE / 2 })
   const curve = useInput('curve', 3, { min: 0, max: SIZE })
   // const curve = useInput('curve', 3, { min: 0, max: SIZE })
   // const isVe = use('curve', 6, { min: 0, max: SIZE })
@@ -48,7 +48,7 @@ const App = () => {
     <div>
       {padding.input}
       {size.input}
-      {lineHeight.input}
+      {extraVerticalPadding.input}
       {curve.input}
       <style>
         {`svg * {
@@ -59,7 +59,7 @@ const App = () => {
         <WaveSine
           size={size.value}
           padding={padding.value}
-          lineHeight={lineHeight.value}
+          extraVerticalPadding={extraVerticalPadding.value}
           curve={curve.value}
         />
       </div>
@@ -67,21 +67,21 @@ const App = () => {
         <WaveSquare
           size={size.value}
           padding={padding.value}
-          lineHeight={lineHeight.value}
+          extraVerticalPadding={extraVerticalPadding.value}
         />
       </div>
       <div style={styleIconWrapper}>
         <WaveSawtooth
           size={size.value}
           padding={padding.value}
-          lineHeight={lineHeight.value}
+          extraVerticalPadding={extraVerticalPadding.value}
         />
       </div>
       <div style={styleIconWrapper}>
         <WaveTriangle
           size={size.value}
           padding={padding.value}
-          lineHeight={lineHeight.value}
+          extraVerticalPadding={extraVerticalPadding.value}
         />
       </div>
     </div>

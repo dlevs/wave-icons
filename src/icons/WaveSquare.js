@@ -3,9 +3,9 @@ import React from 'react'
 const SIZE = 24
 const CENTER = SIZE / 2
 
-export default ({ size, padding, lineHeight, curve }) => {
-	const top = lineHeight + padding
-	const bottom = SIZE - lineHeight - padding
+export default ({ size, padding, extraVerticalPadding, curve }) => {
+	const top = extraVerticalPadding + padding
+	const bottom = SIZE - extraVerticalPadding - padding
 
 	return (
 		<svg

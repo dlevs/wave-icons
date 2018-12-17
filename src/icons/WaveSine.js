@@ -3,7 +3,7 @@ import React from 'react'
 const SIZE = 24
 const CENTER = SIZE / 2
 
-export default ({ size, padding, lineHeight, curve }) =>
+export default ({ size, padding, extraVerticalPadding, curve }) =>
   <svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox={`0 0 ${SIZE} ${SIZE}`}
@@ -17,13 +17,13 @@ export default ({ size, padding, lineHeight, curve }) =>
         `M${padding} ${CENTER}`,
 
         // Left curve above center line
-        `C ${curve + padding} ${lineHeight}, ${CENTER - curve} ${lineHeight},`,
+        `C ${curve + padding} ${extraVerticalPadding}, ${CENTER - curve} ${extraVerticalPadding},`,
 
         // Center
         `${CENTER} ${CENTER}`,
 
         // Right curve below center line
-        `S ${SIZE - padding - curve} ${SIZE - lineHeight},`,
+        `S ${SIZE - padding - curve} ${SIZE - extraVerticalPadding},`,
 
         // End
         `${SIZE - padding} ${CENTER}`
