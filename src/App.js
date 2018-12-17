@@ -37,20 +37,25 @@ const styleIconWrapper = {
 }
 
 const App = () => {
-  const padding = useInput('padding', 1, { min: 0, max: 6 })
   const size = useInput('size', 100, { min: 0, max: 400 })
-  const extraVerticalPadding = useInput('extra vertical padding', 6, { min: 0, max: SIZE / 2 })
+  const xPadding = useInput('xPadding', 1, { min: 0, max: SIZE / 2 })
+  const yPadding = useInput('yPadding', 6, { min: 0, max: SIZE / 2 })
   const curve = useInput('curve', 3, { min: 0, max: SIZE })
   const adjustHeightForCurve = useInput('adjust height for curve', 1, { min: 0, max: 2, step: 0.01 })
   // const isVe = use('curve', 6, { min: 0, max: SIZE })
   const sine = useRef(null)
   const square = useRef(null)
+  const sharedProps = {
+    size: size.value,
+    xPadding: xPadding.value,
+    yPadding: yPadding.value
+  }
 
   return (
     <div>
-      {padding.input}
+      {xPadding.input}
+      {yPadding.input}
       {size.input}
-      {extraVerticalPadding.input}
       {curve.input}
       {adjustHeightForCurve.input}
       <style>
@@ -65,9 +70,7 @@ const App = () => {
 
       <div style={styleIconWrapper}>
         <WaveSine
-          size={size.value}
-          padding={padding.value}
-          extraVerticalPadding={extraVerticalPadding.value}
+          {...sharedProps}
           adjustHeightForCurve={adjustHeightForCurve.value}
           curve={curve.value}
           getRef={sine}
@@ -75,25 +78,15 @@ const App = () => {
       </div>
       <div style={styleIconWrapper}>
         <WaveSquare
-          size={size.value}
-          padding={padding.value}
-          extraVerticalPadding={extraVerticalPadding.value}
+          {...sharedProps}
           getRef={square}
         />
       </div>
       <div style={styleIconWrapper}>
-        <WaveSawtooth
-          size={size.value}
-          padding={padding.value}
-          extraVerticalPadding={extraVerticalPadding.value}
-        />
+        <WaveSawtooth {...sharedProps} />
       </div>
       <div style={styleIconWrapper}>
-        <WaveTriangle
-          size={size.value}
-          padding={padding.value}
-          extraVerticalPadding={extraVerticalPadding.value}
-        />
+        <WaveTriangle {...sharedProps} />
       </div>
     </div>
   );

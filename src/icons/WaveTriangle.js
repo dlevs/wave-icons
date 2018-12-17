@@ -3,10 +3,10 @@ import React from 'react'
 const SIZE = 24
 const CENTER = SIZE / 2
 
-export default ({ size, padding, extraVerticalPadding, curve }) => {
-	const top = extraVerticalPadding + padding
-	const bottom = SIZE - extraVerticalPadding - padding
-	const leftQuarter = ((CENTER - padding) / 2) + padding
+export default ({ size, xPadding, yPadding, curve }) => {
+	const top = yPadding
+	const bottom = SIZE - yPadding
+	const leftQuarter = ((CENTER - xPadding) / 2) + xPadding
 	const rightQuarter = SIZE - leftQuarter
 
 	return (
@@ -19,10 +19,10 @@ export default ({ size, padding, extraVerticalPadding, curve }) => {
 		>
 			<polyline
 				points={[
-					[padding, CENTER],
+					[xPadding, CENTER],
 					[leftQuarter, top],
 					[rightQuarter, bottom],
-					[SIZE - padding, CENTER],
+					[SIZE - xPadding, CENTER],
 				].map(point => point.join(',')).join(' ')}
 				stroke="black"
 				stroke-width="2"

@@ -3,9 +3,9 @@ import React from 'react'
 const SIZE = 24
 const CENTER = SIZE / 2
 
-export default ({ size, padding, extraVerticalPadding, curve }) => {
-	const top = extraVerticalPadding + padding
-	const bottom = SIZE - extraVerticalPadding - padding
+export default ({ size, xPadding, yPadding, curve }) => {
+	const top = yPadding
+	const bottom = SIZE - yPadding
 
 	return (
 		<svg
@@ -17,10 +17,10 @@ export default ({ size, padding, extraVerticalPadding, curve }) => {
 		>
 			<polyline
 				points={[
-					[padding, bottom],
-					[padding, top],
-					[SIZE - padding, bottom],
-					[SIZE - padding, top],
+					[xPadding, bottom],
+					[xPadding, top],
+					[SIZE - xPadding, bottom],
+					[SIZE - xPadding, top],
 				].map(point => point.join(',')).join(' ')}
 				stroke="black"
 				stroke-width="2"

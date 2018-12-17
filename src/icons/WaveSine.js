@@ -3,8 +3,8 @@ import React from 'react'
 const SIZE = 24
 const CENTER = SIZE / 2
 
-export default ({ size, padding, extraVerticalPadding, curve, adjustHeightForCurve, getRef }) => {
-	const top = (extraVerticalPadding + padding) * adjustHeightForCurve
+export default ({ size, xPadding, yPadding, curve, adjustHeightForCurve, getRef }) => {
+	const top = yPadding * adjustHeightForCurve
 	const bottom = SIZE - top
 
 	return (
@@ -19,19 +19,19 @@ export default ({ size, padding, extraVerticalPadding, curve, adjustHeightForCur
 				ref={getRef}
 				d={[
 					// Start
-					`M${padding} ${CENTER}`,
+					`M${xPadding} ${CENTER}`,
 
 					// Left curve above center line
-					`C ${curve + padding} ${top}, ${CENTER - curve} ${top},`,
+					`C ${curve + xPadding} ${top}, ${CENTER - curve} ${top},`,
 
 					// Center
 					`${CENTER} ${CENTER}`,
 
 					// Right curve below center line
-					`S ${SIZE - padding - curve} ${bottom},`,
+					`S ${SIZE - xPadding - curve} ${bottom},`,
 
 					// End
-					`${SIZE - padding} ${CENTER}`
+					`${SIZE - xPadding} ${CENTER}`
 				].join(' ')}
 				stroke="black"
 				stroke-width="2"
