@@ -3,7 +3,7 @@ import React from 'react'
 const SIZE = 24
 const CENTER = SIZE / 2
 
-export default ({ size, padding, extraVerticalPadding, curve }) => {
+export default ({ size, padding, extraVerticalPadding, curve, getRef }) => {
 	const top = extraVerticalPadding + padding
 	const bottom = SIZE - extraVerticalPadding - padding
 
@@ -16,6 +16,7 @@ export default ({ size, padding, extraVerticalPadding, curve }) => {
 			stroke-linecap="round"
 		>
 			<polyline
+				ref={getRef}
 				points={[
 					[padding, CENTER],
 					[padding, top],

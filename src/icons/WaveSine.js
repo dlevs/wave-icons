@@ -3,33 +3,40 @@ import React from 'react'
 const SIZE = 24
 const CENTER = SIZE / 2
 
-export default ({ size, padding, extraVerticalPadding, curve }) =>
-  <svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox={`0 0 ${SIZE} ${SIZE}`}
-		width={size}
-		height={size}
-		stroke-linecap="round"
-	>
-		<path
-			d={[
-        // Start
-        `M${padding} ${CENTER}`,
+export default ({ size, padding, extraVerticalPadding, curve, adjustHeightForCurve, getRef }) => {
+	const top = (extraVerticalPadding + padding) * adjustHeightForCurve
+	const bottom = SIZE - top
 
-        // Left curve above center line
-        `C ${curve + padding} ${extraVerticalPadding}, ${CENTER - curve} ${extraVerticalPadding},`,
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox={`0 0 ${SIZE} ${SIZE}`}
+			width={size}
+			height={size}
+			stroke-linecap="round"
+		>
+			<path
+				ref={getRef}
+				d={[
+					// Start
+					`M${padding} ${CENTER}`,
 
-        // Center
-        `${CENTER} ${CENTER}`,
+					// Left curve above center line
+					`C ${curve + padding} ${top}, ${CENTER - curve} ${top},`,
 
-        // Right curve below center line
-        `S ${SIZE - padding - curve} ${SIZE - extraVerticalPadding},`,
+					// Center
+					`${CENTER} ${CENTER}`,
 
-        // End
-        `${SIZE - padding} ${CENTER}`
-      ].join(' ')}
-			stroke="black"
-			stroke-width="2"
-			fill="transparent"
-		/>
-	</svg>
+					// Right curve below center line
+					`S ${SIZE - padding - curve} ${bottom},`,
+
+					// End
+					`${SIZE - padding} ${CENTER}`
+				].join(' ')}
+				stroke="black"
+				stroke-width="2"
+				fill="transparent"
+			/>
+		</svg>
+	)
+}
