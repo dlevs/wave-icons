@@ -37,6 +37,7 @@ const styleIconWrapper = {
 }
 
 const App = () => {
+  const viewBoxSize = useInput('viewBox Size', 24, { min: 0, max: 400 })
   const size = useInput('size', 100, { min: 0, max: 400 })
   const xPadding = useInput('xPadding', 1, { min: 0, max: SIZE / 2 })
   const yPadding = useInput('yPadding', 6, { min: 0, max: SIZE / 2 })
@@ -46,10 +47,28 @@ const App = () => {
   const sine = useRef(null)
   const square = useRef(null)
   const sharedProps = {
-    size: size.value,
     xPadding: xPadding.value,
-    yPadding: yPadding.value
+    yPadding: yPadding.value,
+
+    // New props
+    left: xPadding.value,
+    right: viewBoxSize.value - xPadding.value,
+    top: yPadding.value,
+    bottom: viewBoxSize.value - yPadding.value,
+    center: viewBoxSize.value / 2,
+
+    svgProps: {
+      xmlns: 'http://www.w3.org/2000/svg',
+      viewBox: `0 0 ${viewBoxSize.value} ${viewBoxSize.value}`,
+      width: size.value,
+      height: size.value,
+      stroke: 'currentColor',
+      strokeLinecap: 'round',
+      strokeWidth: 2,
+      fill: 'none'
+    }
   }
+
 
   return (
     <div>
@@ -59,9 +78,14 @@ const App = () => {
       {curve.input}
       {adjustHeightForCurve.input}
       <style>
-        {`svg * {
-          vector-effect: non-scaling-stroke;
-        }`}
+        {`
+          svg {
+            background: #eee;
+          }
+          svg * {
+            /* vector-effect: non-scaling-stroke; */
+          }
+        `}
       </style>
       <div>
         Sine: {sine.current && sine.current.getBoundingClientRect().height}<br />

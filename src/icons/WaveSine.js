@@ -3,40 +3,36 @@ import React from 'react'
 const SIZE = 24
 const CENTER = SIZE / 2
 
-export default ({ size, xPadding, yPadding, curve, adjustHeightForCurve, getRef }) => {
-	const top = yPadding * adjustHeightForCurve
-	const bottom = SIZE - top
+export default ({
+	svgProps,
+	top,
+	left,
+	bottom,
+	right,
+	center,
+	getRef,
+	curve,
+	adjustHeightForCurve
+}) => (
+	<svg {...svgProps}>
+		<path
+			ref={getRef}
+			d={[
+				// Start
+				`M${left} ${CENTER}`,
 
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox={`0 0 ${SIZE} ${SIZE}`}
-			width={size}
-			height={size}
-			stroke-linecap="round"
-		>
-			<path
-				ref={getRef}
-				d={[
-					// Start
-					`M${xPadding} ${CENTER}`,
+				// Left curve above center line
+				`C ${left + curve} ${top}, ${CENTER - curve} ${top},`,
 
-					// Left curve above center line
-					`C ${curve + xPadding} ${top}, ${CENTER - curve} ${top},`,
+				// Center
+				`${CENTER} ${CENTER}`,
 
-					// Center
-					`${CENTER} ${CENTER}`,
+				// Right curve below center line
+				`S ${right - curve} ${bottom},`,
 
-					// Right curve below center line
-					`S ${SIZE - xPadding - curve} ${bottom},`,
-
-					// End
-					`${SIZE - xPadding} ${CENTER}`
-				].join(' ')}
-				stroke="black"
-				stroke-width="2"
-				fill="transparent"
-			/>
-		</svg>
-	)
-}
+				// End
+				`${right} ${CENTER}`
+			].join(' ')}
+		/>
+	</svg>
+)
