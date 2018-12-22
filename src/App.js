@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react'
 import './App.css'
 import WaveSine from './icons/WaveSine'
 import WaveSquare from './icons/WaveSquare'
@@ -35,20 +35,32 @@ const styleIconWrapper = {
   margin: 10
 }
 
+const DownloadSVGChildren = ({ children, filename }) => {
+  const [href, setHref] = useState(null)
+  const link = useRef(null)
+
+  useEffect(() => {
+    setHref(`data:image/svg+xml;utf8,${link.current.innerHTML}`)
+  }, [children])
+
+  return (
+    <a ref={link} href={href} download={filename}>
+      {children}
+    </a>
+  )
+}
+
 const App = () => {
   const viewBoxSize = useInput('viewBox Size', 24, { min: 0, max: 400 })
   const size = useInput('size', 100, { min: 0, max: 400 })
   const xPadding = useInput('xPadding', 1, { min: 0, max: size.value / 2 })
   const yPadding = useInput('yPadding', 6, { min: 0, max: size.value / 2 })
   const curve = useInput('curve', 3, { min: 0, max: 10 })
-  const adjustHeightForCurve = useInput('adjust height for curve', 1, { min: 0, max: 2, step: 0.01 })
+  const adjustHeightForCurve = useInput('adjust height for curve', 0, { min: -3, max: 3, step: 0.01 })
   const sine = useRef(null)
+  const sineLink = useRef(null)
   const square = useRef(null)
   const sharedProps = {
-    xPadding: xPadding.value,
-    yPadding: yPadding.value,
-
-    // New props
     left: xPadding.value,
     right: viewBoxSize.value - xPadding.value,
     top: yPadding.value,
@@ -67,7 +79,6 @@ const App = () => {
     }
   }
 
-
   return (
     <div>
       {xPadding.input}
@@ -81,24 +92,32 @@ const App = () => {
       </div>
 
       <div style={styleIconWrapper}>
-        <WaveSine
-          {...sharedProps}
-          adjustHeightForCurve={adjustHeightForCurve.value}
-          curve={curve.value}
-          getRef={sine}
-        />
+        <DownloadSVGChildren filename='sine.svg'>
+          <WaveSine
+            {...sharedProps}
+            adjustHeightForCurve={adjustHeightForCurve.value}
+            curve={curve.value}
+            getRef={sine}
+          />
+        </DownloadSVGChildren>
       </div>
       <div style={styleIconWrapper}>
-        <WaveSquare
-          {...sharedProps}
-          getRef={square}
-        />
+        <DownloadSVGChildren filename='square.svg'>
+          <WaveSquare
+            {...sharedProps}
+            getRef={square}
+          />
+        </DownloadSVGChildren>
       </div>
       <div style={styleIconWrapper}>
-        <WaveSawtooth {...sharedProps} />
+        <DownloadSVGChildren filename='sawtooth.svg'>
+          <WaveSawtooth {...sharedProps} />
+        </DownloadSVGChildren>
       </div>
       <div style={styleIconWrapper}>
-        <WaveTriangle {...sharedProps} />
+        <DownloadSVGChildren filename='triangle.svg'>
+          <WaveTriangle {...sharedProps} />
+        </DownloadSVGChildren>
       </div>
     </div>
   );
