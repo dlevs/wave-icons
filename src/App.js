@@ -29,7 +29,6 @@ const useInput = (name, initialValue, inputProps) => {
   }
 }
 // TODO: Move to variables file
-const SIZE = 24
 const styleIconWrapper = {
   // border: '2px dashed #444',
   display: 'inline-block',
@@ -39,11 +38,10 @@ const styleIconWrapper = {
 const App = () => {
   const viewBoxSize = useInput('viewBox Size', 24, { min: 0, max: 400 })
   const size = useInput('size', 100, { min: 0, max: 400 })
-  const xPadding = useInput('xPadding', 1, { min: 0, max: SIZE / 2 })
-  const yPadding = useInput('yPadding', 6, { min: 0, max: SIZE / 2 })
-  const curve = useInput('curve', 3, { min: 0, max: SIZE })
+  const xPadding = useInput('xPadding', 1, { min: 0, max: size.value / 2 })
+  const yPadding = useInput('yPadding', 6, { min: 0, max: size.value / 2 })
+  const curve = useInput('curve', 3, { min: 0, max: 10 })
   const adjustHeightForCurve = useInput('adjust height for curve', 1, { min: 0, max: 2, step: 0.01 })
-  // const isVe = use('curve', 6, { min: 0, max: SIZE })
   const sine = useRef(null)
   const square = useRef(null)
   const sharedProps = {
@@ -77,16 +75,6 @@ const App = () => {
       {size.input}
       {curve.input}
       {adjustHeightForCurve.input}
-      <style>
-        {`
-          svg {
-            background: #eee;
-          }
-          svg * {
-            /* vector-effect: non-scaling-stroke; */
-          }
-        `}
-      </style>
       <div>
         Sine: {sine.current && sine.current.getBoundingClientRect().height}<br />
         Square: {square.current && square.current.getBoundingClientRect().height}

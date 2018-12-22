@@ -1,8 +1,5 @@
 import React from 'react'
 
-const SIZE = 24
-const CENTER = SIZE / 2
-
 export default ({
 	svgProps,
 	top,
@@ -13,26 +10,31 @@ export default ({
 	getRef,
 	curve,
 	adjustHeightForCurve
-}) => (
-	<svg {...svgProps}>
-		<path
-			ref={getRef}
-			d={[
-				// Start
-				`M${left} ${CENTER}`,
+}) => {
+	top += adjustHeightForCurve
+	bottom -= adjustHeightForCurve
 
-				// Left curve above center line
-				`C ${left + curve} ${top}, ${CENTER - curve} ${top},`,
+	return (
+		<svg {...svgProps}>
+			<path
+				ref={getRef}
+				d={[
+					// Start
+					`M${left} ${center}`,
 
-				// Center
-				`${CENTER} ${CENTER}`,
+					// Left curve above center line
+					`C ${left + curve} ${top}, ${center - curve} ${top},`,
 
-				// Right curve below center line
-				`S ${right - curve} ${bottom},`,
+					// Center
+					`${center} ${center}`,
 
-				// End
-				`${right} ${CENTER}`
-			].join(' ')}
-		/>
-	</svg>
-)
+					// Right curve below center line
+					`S ${right - curve} ${bottom},`,
+
+					// End
+					`${right} ${center}`
+				].join(' ')}
+			/>
+		</svg>
+	)
+}

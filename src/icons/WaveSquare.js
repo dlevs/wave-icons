@@ -1,7 +1,5 @@
 import React from 'react'
-
-const SIZE = 24
-const CENTER = SIZE / 2
+import formatPoints from '../lib/formatPoints'
 
 export default ({
 	svgProps,
@@ -15,14 +13,14 @@ export default ({
 	<svg {...svgProps}>
 		<polyline
 			ref={getRef}
-			points={[
-				[left, CENTER],
+			points={formatPoints([
+				[left, center],
 				[left, top],
-				[CENTER, top],
-				[CENTER, bottom],
+				[center, top],
+				[center, bottom],
 				[right, bottom],
-				[right, CENTER],
-			].map(point => point.join(',')).join(' ')}
+				[right, center],
+			])}
 		/>
 	</svg>
 )

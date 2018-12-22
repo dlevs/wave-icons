@@ -1,4 +1,5 @@
 import React from 'react'
+import formatPoints from '../lib/formatPoints'
 
 export default ({
 	svgProps,
@@ -13,12 +14,12 @@ export default ({
 
 	return (
 		<svg {...svgProps}>
-			<polyline points={[
+			<polyline points={formatPoints([
 				[left, center],
 				[leftQuarter, top],
 				[rightQuarter, bottom],
 				[right, center],
-			].map(point => point.join(',')).join(' ')} />
+			])} />
 		</svg>
 	)
 }
